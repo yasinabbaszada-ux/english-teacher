@@ -27,7 +27,9 @@
     "certsTitle": "Təhsil və sertifikatlar",
     "certsSubtitle": "Peşəkar hazırlıq və nailiyyətlər",
     "certPlaceholder": "Sertifikat şəkli buraya əlavə olunacaq",
-    "photoAlt": "Müəllimin şəkli"
+    "photoAlt": "Müəllimin şəkli",
+    "expTitle": "İş təcrübəsi",
+    "eduTitle": "Təhsil"
   },
   "menu": {
     "open": "Menyu",

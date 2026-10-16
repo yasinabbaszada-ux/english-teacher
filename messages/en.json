@@ -27,7 +27,9 @@
     "certsTitle": "Education & certificates",
     "certsSubtitle": "Professional training and achievements",
     "certPlaceholder": "A certificate image will be added here",
-    "photoAlt": "Teacher's photo"
+    "photoAlt": "Teacher's photo",
+    "expTitle": "Work experience",
+    "eduTitle": "Education"
   },
   "menu": {
     "open": "Menu",

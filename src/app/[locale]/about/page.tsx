@@ -35,6 +35,61 @@ export default async function AboutPage({
     t("about.h4"),
   ];
 
+  const az = l === "az";
+  const location = az ? "Bakı, Azərbaycan" : "Baku, Azerbaijan";
+
+  const experience = [
+    {
+      role: az ? "İngilis dili müəllimi" : "English Teacher",
+      company: "Khazar University",
+      period: az ? "Mart 2026 – indi" : "Mar 2026 – Present",
+      type: az ? "Yarımştat" : "Part-time",
+    },
+    {
+      role: az ? "İngilis dili müəllimi" : "English Teacher",
+      company: "iTTi – International TEFL Training Institute",
+      period: az ? "Sentyabr 2025 – indi" : "Sep 2025 – Present",
+      type: az ? "Yarımştat" : "Part-time",
+    },
+    {
+      role: az ? "İngilis dili müəllimi" : "General English Teacher",
+      company: "VIP Academy",
+      period: az ? "Sentyabr 2023 – indi" : "Sep 2023 – Present",
+      type: az ? "Tamştat" : "Full-time",
+    },
+    {
+      role: az
+        ? "İngilis dili və incəsənət müəllimi"
+        : "English Language Art Teacher",
+      company: az
+        ? "Azərbaycan Dillər Universiteti"
+        : "Azerbaijan University of Languages",
+      period: az ? "Fevral 2025 – May 2025" : "Feb 2025 – May 2025",
+      type: az ? "Müqavilə" : "Contract",
+    },
+  ];
+
+  const education = [
+    {
+      degree: az
+        ? "Magistr — Dilçilik (ingilis dilində)"
+        : "Master's degree — Linguistics (in English)",
+      school: az
+        ? "Azərbaycan Dillər Universiteti"
+        : "Azerbaijan State University of Languages",
+      period: "2021 – 2023",
+    },
+    {
+      degree: az
+        ? "Bakalavr — İngilis dilinin tədrisi (ESL)"
+        : "Bachelor's degree — Teaching English as a Second/Foreign Language (ESL)",
+      school: az
+        ? "Azərbaycan Dillər Universiteti"
+        : "Azerbaijan State University of Languages",
+      period: "2017 – 2021",
+    },
+  ];
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-14">
       {/* Intro: photo + info */}
@@ -86,6 +141,54 @@ export default async function AboutPage({
           </div>
         </Reveal>
       </div>
+
+      {/* Experience */}
+      <section className="mt-20">
+        <Reveal>
+          <h2 className="text-3xl font-extrabold tracking-tight">
+            {t("about.expTitle")}
+          </h2>
+        </Reveal>
+        <div className="mt-8 max-w-2xl">
+          {experience.map((e, i) => (
+            <Reveal key={i} delay={i * 0.05}>
+              <div className="relative border-l-2 border-border pb-8 pl-6 last:pb-0">
+                <span className="absolute -left-[7px] top-1 h-3 w-3 rounded-full bg-primary ring-4 ring-background" />
+                <h3 className="font-bold">{e.role}</h3>
+                <p className="text-sm font-medium text-primary">{e.company}</p>
+                <p className="mt-1 text-xs text-muted">
+                  {e.period} · {e.type} · {location}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* Education */}
+      <section className="mt-16">
+        <Reveal>
+          <h2 className="text-3xl font-extrabold tracking-tight">
+            {t("about.eduTitle")}
+          </h2>
+        </Reveal>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          {education.map((e, i) => (
+            <Reveal key={i} delay={i * 0.05}>
+              <div className="rounded-2xl border border-border bg-card p-5">
+                <div className="flex items-center gap-2 text-primary">
+                  <span className="text-xl">🎓</span>
+                  <span className="text-xs font-semibold uppercase tracking-wide">
+                    {e.period}
+                  </span>
+                </div>
+                <h3 className="mt-2 font-bold leading-snug">{e.degree}</h3>
+                <p className="mt-1 text-sm text-muted">{e.school}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
 
       {/* Certificates */}
       <section className="mt-20">
