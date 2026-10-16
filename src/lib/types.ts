@@ -52,4 +52,13 @@ export type SiteSettings = {
   about_en: string | null;
   years_experience: number | null;
   students_count: number | null;
+  photo_path: string | null;
+};
+
+export type Certificate = {
+  id: string;
+  title: string | null;
+  image_path: string;
+  sort_order: number;
+  created_at: string;
 };

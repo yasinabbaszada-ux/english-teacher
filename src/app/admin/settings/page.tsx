@@ -3,6 +3,7 @@ import AdminShell from "@/components/AdminShell";
 import { getAdminUser } from "@/lib/auth";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { isSupabaseAdminConfigured } from "@/lib/supabase/env";
+import { mediaUrl } from "@/lib/data";
 import { saveSettings } from "../actions";
 import type { SiteSettings } from "@/lib/types";
 
@@ -39,6 +40,37 @@ export default async function AdminSettings() {
       )}
 
       <form action={saveSettings} className="mt-6 max-w-3xl space-y-8">
+        <input
+          type="hidden"
+          name="photo_path_existing"
+          value={s.photo_path ?? ""}
+        />
+
+        <section className="space-y-4 rounded-2xl border border-border bg-card p-5">
+          <h2 className="font-bold">Müəllimin şəkli</h2>
+          <div className="flex items-center gap-5">
+            <div className="h-24 w-20 shrink-0 overflow-hidden rounded-xl border border-border bg-background">
+              {mediaUrl(s.photo_path ?? null) ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={mediaUrl(s.photo_path ?? null)!}
+                  alt="Şəkil"
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <div className="grid h-full place-items-center text-2xl">📷</div>
+              )}
+            </div>
+            <div className="flex-1">
+              <label className={labelCls}>Yeni şəkil yüklə (Haqqımda səhifəsi)</label>
+              <input name="photo" type="file" accept="image/*" className={inputCls} />
+              <p className="mt-1 text-xs text-muted">
+                Boş buraxsan, köhnə şəkil qalır.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className="space-y-4 rounded-2xl border border-border bg-card p-5">
           <h2 className="font-bold">Əlaqə</h2>
           <div className="grid gap-4 sm:grid-cols-2">

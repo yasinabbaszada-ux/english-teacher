@@ -2,7 +2,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import ProfilePhoto from "@/components/ProfilePhoto";
 import Certificates from "@/components/Certificates";
 import Reveal from "@/components/Reveal";
-import { getSettings } from "@/lib/data";
+import { getCertificates, getSettings, mediaUrl } from "@/lib/data";
 import { loc } from "@/lib/localized";
 import type { Locale } from "@/i18n/routing";
 
@@ -17,7 +17,13 @@ export default async function AboutPage({
 
   const t = await getTranslations();
   const settings = await getSettings();
+  const certificates = await getCertificates();
   const aboutBody = loc(settings, "about", l) || t("about.body");
+
+  const photoSrc = mediaUrl(settings.photo_path);
+  const certItems = certificates
+    .map((c) => ({ url: mediaUrl(c.image_path), title: c.title }))
+    .filter((c): c is { url: string; title: string | null } => Boolean(c.url));
 
   const highlights = [
     t("about.h1"),
@@ -31,7 +37,7 @@ export default async function AboutPage({
       {/* Intro: photo + info */}
       <div className="grid items-center gap-10 md:grid-cols-[2fr_3fr]">
         <Reveal>
-          <ProfilePhoto alt={t("about.photoAlt")} />
+          <ProfilePhoto src={photoSrc} alt={t("about.photoAlt")} />
         </Reveal>
 
         <Reveal delay={0.1}>
@@ -88,7 +94,10 @@ export default async function AboutPage({
         </Reveal>
         <div className="mt-8">
           <Reveal delay={0.05}>
-            <Certificates count={4} placeholder={t("about.certPlaceholder")} />
+            <Certificates
+              items={certItems}
+              placeholder={t("about.certPlaceholder")}
+            />
           </Reveal>
         </div>
       </section>

@@ -3,18 +3,25 @@
 import { useState } from "react";
 
 /**
- * Shows /teacher.jpg from the public folder. Until the teacher adds that
- * file, a styled placeholder is shown instead.
+ * Teacher photo. Shows the provided image URL; until one is set (or if it
+ * fails to load) a styled placeholder is shown instead.
  */
-export default function ProfilePhoto({ alt }: { alt: string }) {
+export default function ProfilePhoto({
+  src,
+  alt,
+}: {
+  src: string | null;
+  alt: string;
+}) {
   const [error, setError] = useState(false);
+  const showImg = src && !error;
 
   return (
     <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/15 via-accent/20 to-card shadow-lg">
-      {!error ? (
+      {showImg ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src="/teacher.jpg"
+          src={src}
           alt={alt}
           onError={() => setError(true)}
           className="h-full w-full object-cover"
@@ -26,7 +33,7 @@ export default function ProfilePhoto({ alt }: { alt: string }) {
               📷
             </div>
             <p className="mt-4 px-6 text-sm text-muted">
-              /public/teacher.jpg
+              Şəkil admin paneldən əlavə olunacaq
             </p>
           </div>
         </div>

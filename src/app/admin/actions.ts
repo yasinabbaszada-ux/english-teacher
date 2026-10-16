@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createServerSupabase } from "@/lib/supabase/server";
 import { requireAdmin } from "@/lib/auth";
-import { STORAGE_BUCKET } from "@/lib/supabase/env";
+import { STORAGE_BUCKET, MEDIA_BUCKET } from "@/lib/supabase/env";
 
 /* --------------------------- helpers --------------------------- */
 
@@ -21,17 +21,16 @@ function slug(name: string) {
 async function uploadFile(
   file: File | null,
   folder: string,
+  bucket: string = STORAGE_BUCKET,
 ): Promise<string | null> {
   if (!file || file.size === 0) return null;
   const supabase = createAdminClient();
   const key = `${folder}/${Date.now()}-${slug(file.name)}`;
   const buffer = Buffer.from(await file.arrayBuffer());
-  const { error } = await supabase.storage
-    .from(STORAGE_BUCKET)
-    .upload(key, buffer, {
-      contentType: file.type || "application/octet-stream",
-      upsert: false,
-    });
+  const { error } = await supabase.storage.from(bucket).upload(key, buffer, {
+    contentType: file.type || "application/octet-stream",
+    upsert: false,
+  });
   if (error) throw new Error(`upload_failed: ${error.message}`);
   return key;
 }
@@ -63,7 +62,7 @@ export async function saveMaterial(formData: FormData) {
   const thumb = formData.get("thumbnail") as File | null;
 
   const newFilePath = await uploadFile(file, "files");
-  const newThumbPath = await uploadFile(thumb, "thumbnails");
+  const newThumbPath = await uploadFile(thumb, "thumbnails", MEDIA_BUCKET);
 
   const isPaid = formData.get("is_paid") === "on";
 
@@ -180,8 +179,14 @@ export async function deleteCode(formData: FormData) {
 export async function saveSettings(formData: FormData) {
   await requireAdmin();
   const supabase = createAdminClient();
+
+  const photo = formData.get("photo") as File | null;
+  const newPhotoPath = await uploadFile(photo, "photo", MEDIA_BUCKET);
+  const photoExisting = str(formData.get("photo_path_existing"));
+
   const row = {
     id: 1,
+    photo_path: newPhotoPath ?? photoExisting,
     phone: str(formData.get("phone")),
     whatsapp: str(formData.get("whatsapp")),
     email: str(formData.get("email")),
@@ -198,5 +203,32 @@ export async function saveSettings(formData: FormData) {
   };
   await supabase.from("site_settings").upsert(row);
   revalidatePath("/admin/settings");
+  revalidatePath("/", "layout");
+}
+
+/* --------------------------- certificates --------------------------- */
+
+export async function createCertificate(formData: FormData) {
+  await requireAdmin();
+  const supabase = createAdminClient();
+  const image = formData.get("image") as File | null;
+  const imagePath = await uploadFile(image, "certificates", MEDIA_BUCKET);
+  if (!imagePath) return;
+  await supabase.from("certificates").insert({
+    title: str(formData.get("title")),
+    image_path: imagePath,
+    sort_order: Number(formData.get("sort_order")) || 0,
+  });
+  revalidatePath("/admin/certificates");
+  revalidatePath("/", "layout");
+}
+
+export async function deleteCertificate(formData: FormData) {
+  await requireAdmin();
+  const id = str(formData.get("id"));
+  if (!id) return;
+  const supabase = createAdminClient();
+  await supabase.from("certificates").delete().eq("id", id);
+  revalidatePath("/admin/certificates");
   revalidatePath("/", "layout");
 }

@@ -1,7 +1,11 @@
 import "server-only";
 import { createAdminClient } from "./supabase/admin";
-import { isSupabaseAdminConfigured, STORAGE_BUCKET } from "./supabase/env";
-import type { Category, Material, SiteSettings } from "./types";
+import {
+  isSupabaseAdminConfigured,
+  STORAGE_BUCKET,
+  MEDIA_BUCKET,
+} from "./supabase/env";
+import type { Category, Certificate, Material, SiteSettings } from "./types";
 
 /* ------------------------------------------------------------------ *
  * Fallback sample data — used when Supabase is not yet configured so
@@ -106,6 +110,7 @@ const SAMPLE_SETTINGS: SiteSettings = {
   about_en: null,
   years_experience: 7,
   students_count: 500,
+  photo_path: null,
 };
 
 /* ------------------------------------------------------------------ *
@@ -163,13 +168,30 @@ export async function getSettings(): Promise<SiteSettings> {
   return data as SiteSettings;
 }
 
-/** Public URL for a thumbnail stored in Supabase Storage. */
-export function thumbnailUrl(path: string | null): string | null {
+/** Public URL for an image in the public "media" bucket. */
+export function mediaUrl(path: string | null): string | null {
   if (!path) return null;
   if (!isSupabaseAdminConfigured) return null;
   const supabase = createAdminClient();
-  const { data } = supabase.storage.from(STORAGE_BUCKET).getPublicUrl(path);
+  const { data } = supabase.storage.from(MEDIA_BUCKET).getPublicUrl(path);
   return data.publicUrl;
+}
+
+/** Public URL for a material thumbnail (stored in the public media bucket). */
+export function thumbnailUrl(path: string | null): string | null {
+  return mediaUrl(path);
+}
+
+export async function getCertificates(): Promise<Certificate[]> {
+  if (!isSupabaseAdminConfigured) return [];
+  const supabase = createAdminClient();
+  const { data, error } = await supabase
+    .from("certificates")
+    .select("*")
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+  if (error || !data) return [];
+  return data as Certificate[];
 }
 
 /** Short-lived signed URL for a file in the private Storage bucket. */

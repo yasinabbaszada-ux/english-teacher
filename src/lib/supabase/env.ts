@@ -12,3 +12,5 @@ export const isSupabaseAdminConfigured = Boolean(
 );
 
 export const STORAGE_BUCKET = "materials";
+/** Public bucket for non-sensitive images (photo, certificates, thumbnails). */
+export const MEDIA_BUCKET = "media";

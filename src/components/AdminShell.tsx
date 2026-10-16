@@ -5,6 +5,7 @@ import { signOut } from "@/app/admin/actions";
 const nav = [
   { href: "/admin", label: "İdarə paneli" },
   { href: "/admin/materials", label: "Materiallar" },
+  { href: "/admin/certificates", label: "Sertifikatlar" },
   { href: "/admin/codes", label: "Giriş kodları" },
   { href: "/admin/settings", label: "Parametrlər" },
 ];
