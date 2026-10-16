@@ -6,6 +6,9 @@ import { getCertificates, getSettings, mediaUrl } from "@/lib/data";
 import { loc } from "@/lib/localized";
 import type { Locale } from "@/i18n/routing";
 
+// Content is managed from the admin panel, so always render fresh.
+export const dynamic = "force-dynamic";
+
 export default async function AboutPage({
   params,
 }: {

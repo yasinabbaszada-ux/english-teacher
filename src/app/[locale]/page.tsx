@@ -7,6 +7,8 @@ import { getMaterials, getSettings } from "@/lib/data";
 import { loc } from "@/lib/localized";
 import type { Locale } from "@/i18n/routing";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage({
   params,
 }: {
