@@ -1,6 +1,8 @@
 import "server-only";
 import { createAdminClient } from "./supabase/admin";
+import { createPublicClient } from "./supabase/public";
 import {
+  isSupabaseConfigured,
   isSupabaseAdminConfigured,
   STORAGE_BUCKET,
   MEDIA_BUCKET,
@@ -118,8 +120,8 @@ const SAMPLE_SETTINGS: SiteSettings = {
  * ------------------------------------------------------------------ */
 
 export async function getCategories(): Promise<Category[]> {
-  if (!isSupabaseAdminConfigured) return SAMPLE_CATEGORIES;
-  const supabase = createAdminClient();
+  if (!isSupabaseConfigured) return SAMPLE_CATEGORIES;
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("categories")
     .select("*")
@@ -129,8 +131,8 @@ export async function getCategories(): Promise<Category[]> {
 }
 
 export async function getMaterials(): Promise<Material[]> {
-  if (!isSupabaseAdminConfigured) return SAMPLE_MATERIALS;
-  const supabase = createAdminClient();
+  if (!isSupabaseConfigured) return SAMPLE_MATERIALS;
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("materials")
     .select("*")
@@ -142,10 +144,10 @@ export async function getMaterials(): Promise<Material[]> {
 }
 
 export async function getMaterial(id: string): Promise<Material | null> {
-  if (!isSupabaseAdminConfigured) {
+  if (!isSupabaseConfigured) {
     return SAMPLE_MATERIALS.find((m) => m.id === id) ?? null;
   }
-  const supabase = createAdminClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("materials")
     .select("*")
@@ -157,8 +159,8 @@ export async function getMaterial(id: string): Promise<Material | null> {
 }
 
 export async function getSettings(): Promise<SiteSettings> {
-  if (!isSupabaseAdminConfigured) return SAMPLE_SETTINGS;
-  const supabase = createAdminClient();
+  if (!isSupabaseConfigured) return SAMPLE_SETTINGS;
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("site_settings")
     .select("*")
@@ -171,8 +173,8 @@ export async function getSettings(): Promise<SiteSettings> {
 /** Public URL for an image in the public "media" bucket. */
 export function mediaUrl(path: string | null): string | null {
   if (!path) return null;
-  if (!isSupabaseAdminConfigured) return null;
-  const supabase = createAdminClient();
+  if (!isSupabaseConfigured) return null;
+  const supabase = createPublicClient();
   const { data } = supabase.storage.from(MEDIA_BUCKET).getPublicUrl(path);
   return data.publicUrl;
 }
@@ -183,8 +185,8 @@ export function thumbnailUrl(path: string | null): string | null {
 }
 
 export async function getCertificates(): Promise<Certificate[]> {
-  if (!isSupabaseAdminConfigured) return [];
-  const supabase = createAdminClient();
+  if (!isSupabaseConfigured) return [];
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("certificates")
     .select("*")
