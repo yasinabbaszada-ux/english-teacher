@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# English Teacher — şəxsi sayt
 
-## Getting Started
+İngilis dili müəllimi üçün animasiyalı şəxsi sayt. Dərsliklər/materiallar (pulsuz və premium), AZ/EN dil seçimi, müəllim üçün admin panel. Premium materiallar **giriş kodu** ilə açılır (ödəniş əl ilə / WhatsApp).
 
-First, run the development server:
+**Stack:** Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Framer Motion · next-intl · Supabase (Postgres + Storage).
+
+---
+
+## 1. Lokal işə salma
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Sayt: http://localhost:3000 (→ `/az`). Admin: http://localhost:3000/admin
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> Supabase konfiqurasiya edilməyibsə, sayt **nümunə data** ilə işləyir ki, dizaynı dərhal görə biləsiniz.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 2. Supabase quraşdırması
 
-To learn more about Next.js, take a look at the following resources:
+1. [supabase.com](https://supabase.com) → yeni layihə yarat (pulsuz plan).
+2. **SQL Editor** → `supabase/schema.sql` faylının məzmununu yapışdır və işə sal (cədvəllər, RLS, `materials` storage bucket yaranır).
+3. **Project Settings → API** bölməsindən açarları götür.
+4. `.env.example` faylını `.env.local` adı ilə kopyala və doldur:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+   SUPABASE_SERVICE_ROLE_KEY=...   # yalnız serverdə, heç vaxt brauzerə vermə
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. **Admin hesabı yarat:** Supabase → **Authentication → Users → Add user** (email + parol). Bu məlumatlarla `/admin` -ə giriş edəcəksən.
+6. `npm run dev` yenidən başlat.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 3. İstifadə
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Admin → Materiallar:** yeni material əlavə et, fayl (PDF və s.) və şəkil yüklə, "Premium" seç və qiymət təyin et.
+- **Premium satış axını:**
+  1. İstifadəçi materialda **"Satın al"** → WhatsApp açılır.
+  2. Ödəniş əl ilə alınır.
+  3. **Admin → Giriş kodları** → həmin material üçün kod yarat (istifadə sayı/bitmə təyin et) və alıcıya göndər.
+  4. İstifadəçi kodu material səhifəsində daxil edir → fayl açılır (müvəqqəti signed URL).
+- **Admin → Parametrlər:** əlaqə məlumatları, hero/haqqımda mətnləri, statistika.
+
+---
+
+## 4. Vercel-ə deploy
+
+1. Kodu GitHub-a yüklə.
+2. [vercel.com](https://vercel.com) → **New Project** → repo-nu seç.
+3. **Environment Variables** bölməsinə `.env.local`-dakı 3 dəyişəni əlavə et.
+4. Deploy. (Supabase ayrıca işləyir — əlavə ayar lazım deyil.)
+
+---
+
+## Struktur
+
+```
+src/
+  app/[locale]/        # public sayt (az/en): ana səhifə, materiallar, haqqımda
+  app/admin/           # admin panel (Supabase Auth)
+  app/api/redeem/      # giriş kodu → signed URL
+  components/          # Hero, MaterialCard, PaidUnlock, AdminShell, ...
+  i18n/                # next-intl (routing, request, navigation)
+  lib/                 # supabase client-ləri, data qatı, auth
+messages/              # az.json, en.json
+supabase/schema.sql    # baza sxemi + RLS + storage
+```

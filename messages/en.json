@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "home": "Home",
+    "materials": "Materials",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "English Teacher",
+    "title": "Speak English with confidence",
+    "subtitle": "Live lessons, curated materials and focused preparation — for every level.",
+    "ctaMaterials": "Browse materials",
+    "ctaContact": "Get in touch",
+    "stat1": "Years experience",
+    "stat2": "Students",
+    "stat3": "Materials"
+  },
+  "about": {
+    "title": "About me",
+    "body": "Hi! I'm a professional English teacher. My goal is to teach the language in a simple, engaging and result-driven way. I offer individual and group lessons for IELTS, speaking and grammar."
+  },
+  "materials": {
+    "title": "Lessons & materials",
+    "subtitle": "Free and premium resources",
+    "all": "All",
+    "free": "Free",
+    "paid": "Premium",
+    "search": "Search...",
+    "empty": "No materials yet.",
+    "view": "View",
+    "download": "Download",
+    "locked": "Locked",
+    "buy": "Buy",
+    "free_label": "Free",
+    "readMore": "Read more"
+  },
+  "detail": {
+    "back": "Back",
+    "freeDownload": "Download for free",
+    "premiumTitle": "Premium material",
+    "premiumInfo": "This material is paid. To purchase, contact us — after payment you will receive an access code.",
+    "buyNow": "Buy / Contact",
+    "haveCode": "Have an access code?",
+    "enterCode": "Enter your access code",
+    "unlock": "Unlock",
+    "unlocking": "Unlocking...",
+    "unlocked": "Material unlocked!",
+    "openFile": "Open file",
+    "invalidCode": "The code is invalid or has expired.",
+    "price": "Price"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Write to us with your questions",
+    "phone": "Phone",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "cta": "Message on WhatsApp"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "madeWith": "English teacher personal website"
+  },
+  "common": {
+    "loading": "Loading...",
+    "currency": "₼"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "home": "Ana səhifə",
+    "materials": "Materiallar",
+    "about": "Haqqımda",
+    "contact": "Əlaqə"
+  },
+  "hero": {
+    "badge": "İngilis dili müəllimi",
+    "title": "İngilis dilini inamla danış",
+    "subtitle": "Canlı dərslər, seçmə materiallar və hədəfə yönəlik hazırlıq — hər səviyyə üçün.",
+    "ctaMaterials": "Materiallara bax",
+    "ctaContact": "Əlaqə saxla",
+    "stat1": "İl təcrübə",
+    "stat2": "Tələbə",
+    "stat3": "Material"
+  },
+  "about": {
+    "title": "Haqqımda",
+    "body": "Salam! Mən peşəkar İngilis dili müəllimiyəm. Məqsədim dili sadə, maraqlı və nəticəyönümlü şəkildə öyrətməkdir. IELTS, danışıq və qrammatika üzrə fərdi və qrup dərsləri keçirəm."
+  },
+  "materials": {
+    "title": "Dərsliklər və materiallar",
+    "subtitle": "Pulsuz və premium resurslar",
+    "all": "Hamısı",
+    "free": "Pulsuz",
+    "paid": "Premium",
+    "search": "Axtar...",
+    "empty": "Hələ material yoxdur.",
+    "view": "Bax",
+    "download": "Yüklə",
+    "locked": "Kilidli",
+    "buy": "Satın al",
+    "free_label": "Pulsuz",
+    "readMore": "Ətraflı"
+  },
+  "detail": {
+    "back": "Geri",
+    "freeDownload": "Pulsuz yüklə",
+    "premiumTitle": "Premium material",
+    "premiumInfo": "Bu material ödənişlidir. Satın almaq üçün bizimlə əlaqə saxlayın, ödənişdən sonra sizə giriş kodu veriləcək.",
+    "buyNow": "Satın al / Əlaqə",
+    "haveCode": "Giriş kodunuz var?",
+    "enterCode": "Giriş kodunu daxil edin",
+    "unlock": "Aç",
+    "unlocking": "Açılır...",
+    "unlocked": "Material açıldı!",
+    "openFile": "Faylı aç",
+    "invalidCode": "Kod yanlışdır və ya istifadə müddəti bitib.",
+    "price": "Qiymət"
+  },
+  "contact": {
+    "title": "Əlaqə",
+    "subtitle": "Suallarınız üçün yazın",
+    "phone": "Telefon",
+    "whatsapp": "WhatsApp",
+    "email": "E-poçt",
+    "cta": "WhatsApp-da yaz"
+  },
+  "footer": {
+    "rights": "Bütün hüquqlar qorunur.",
+    "madeWith": "İngilis dili müəllimi şəxsi saytı"
+  },
+  "common": {
+    "loading": "Yüklənir...",
+    "currency": "₼"
+  }
+}
