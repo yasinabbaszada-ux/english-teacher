@@ -17,7 +17,22 @@
   },
   "about": {
     "title": "About me",
-    "body": "Hi! I'm a professional English teacher. My goal is to teach the language in a simple, engaging and result-driven way. I offer individual and group lessons for IELTS, speaking and grammar."
+    "role": "English Teacher",
+    "body": "Hi! I'm a professional English teacher. My goal is to teach the language in a simple, engaging and result-driven way. I offer individual and group lessons for IELTS, speaking and grammar.",
+    "highlightsTitle": "What I offer",
+    "h1": "IELTS & exam preparation",
+    "h2": "Individual & group lessons",
+    "h3": "Online & in-person",
+    "h4": "Speaking, grammar & vocabulary",
+    "certsTitle": "Education & certificates",
+    "certsSubtitle": "Professional training and achievements",
+    "certPlaceholder": "A certificate image will be added here",
+    "photoAlt": "Teacher's photo"
+  },
+  "menu": {
+    "open": "Menu",
+    "close": "Close",
+    "title": "Menu"
   },
   "materials": {
     "title": "Lessons & materials",

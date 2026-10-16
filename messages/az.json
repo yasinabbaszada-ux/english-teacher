@@ -17,7 +17,22 @@
   },
   "about": {
     "title": "Haqqımda",
-    "body": "Salam! Mən peşəkar İngilis dili müəllimiyəm. Məqsədim dili sadə, maraqlı və nəticəyönümlü şəkildə öyrətməkdir. IELTS, danışıq və qrammatika üzrə fərdi və qrup dərsləri keçirəm."
+    "role": "İngilis dili müəllimi",
+    "body": "Salam! Mən peşəkar İngilis dili müəllimiyəm. Məqsədim dili sadə, maraqlı və nəticəyönümlü şəkildə öyrətməkdir. IELTS, danışıq və qrammatika üzrə fərdi və qrup dərsləri keçirəm.",
+    "highlightsTitle": "Nə təklif edirəm",
+    "h1": "IELTS və imtahan hazırlığı",
+    "h2": "Fərdi və qrup dərslər",
+    "h3": "Onlayn və əyani dərslər",
+    "h4": "Danışıq, qrammatika və lüğət",
+    "certsTitle": "Təhsil və sertifikatlar",
+    "certsSubtitle": "Peşəkar hazırlıq və nailiyyətlər",
+    "certPlaceholder": "Sertifikat şəkli buraya əlavə olunacaq",
+    "photoAlt": "Müəllimin şəkli"
+  },
+  "menu": {
+    "open": "Menyu",
+    "close": "Bağla",
+    "title": "Menyu"
   },
   "materials": {
     "title": "Dərsliklər və materiallar",

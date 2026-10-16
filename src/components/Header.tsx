@@ -1,82 +1,126 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { AnimatePresence, motion } from "framer-motion";
 import { Link, usePathname } from "@/i18n/navigation";
 import LangSwitcher from "./LangSwitcher";
 
 export default function Header() {
   const t = useTranslations("nav");
+  const tm = useTranslations("menu");
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   const links = [
     { href: "/", label: t("home") },
-    { href: "/materials", label: t("materials") },
     { href: "/about", label: t("about") },
+    { href: "/materials", label: t("materials") },
+    { href: "/#contact", label: t("contact") },
   ] as const;
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    if (href.startsWith("/#")) return false;
+    return pathname.startsWith(href);
+  };
+
+  // Lock body scroll while the drawer is open.
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2 font-bold">
-          <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-fg shadow-sm">
-            E
-          </span>
-          <span className="text-lg tracking-tight">English Teacher</span>
-        </Link>
-
-        <nav className="hidden items-center gap-1 md:flex">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                isActive(l.href)
-                  ? "bg-primary/10 text-primary"
-                  : "text-muted hover:text-foreground"
-              }`}
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <LangSwitcher />
+        <div className="flex items-center gap-3">
           <button
-            onClick={() => setOpen((v) => !v)}
-            className="grid h-10 w-10 place-items-center rounded-lg border border-border md:hidden"
-            aria-label="Menu"
+            onClick={() => setOpen(true)}
+            aria-label={tm("open")}
+            className="grid h-10 w-10 place-items-center rounded-xl border border-border bg-card transition-colors hover:border-primary"
           >
-            <span className="text-lg">{open ? "✕" : "☰"}</span>
+            <span className="flex flex-col gap-[5px]">
+              <span className="block h-0.5 w-5 rounded-full bg-foreground" />
+              <span className="block h-0.5 w-5 rounded-full bg-foreground" />
+              <span className="block h-0.5 w-5 rounded-full bg-foreground" />
+            </span>
           </button>
+
+          <Link href="/" className="flex items-center gap-2 font-bold">
+            <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-fg shadow-sm">
+              E
+            </span>
+            <span className="text-lg tracking-tight">English Teacher</span>
+          </Link>
         </div>
+
+        <LangSwitcher />
       </div>
 
-      {open && (
-        <nav className="border-t border-border bg-background md:hidden">
-          <div className="mx-auto flex max-w-6xl flex-col px-4 py-2">
-            {links.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className={`rounded-lg px-4 py-3 text-sm font-medium ${
-                  isActive(l.href)
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted"
-                }`}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
-        </nav>
-      )}
+      {/* Left drawer */}
+      <AnimatePresence>
+        {open && (
+          <>
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setOpen(false)}
+              className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
+            />
+            <motion.aside
+              key="panel"
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "tween", duration: 0.3, ease: "easeOut" }}
+              className="fixed inset-y-0 left-0 z-50 flex w-72 max-w-[80vw] flex-col border-r border-border bg-background p-5 shadow-2xl"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 font-bold">
+                  <span className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-primary-fg">
+                    E
+                  </span>
+                  <span className="tracking-tight">English Teacher</span>
+                </div>
+                <button
+                  onClick={() => setOpen(false)}
+                  aria-label={tm("close")}
+                  className="grid h-9 w-9 place-items-center rounded-lg border border-border text-lg hover:border-primary"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <nav className="mt-8 flex flex-col gap-1">
+                {links.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    className={`rounded-xl px-4 py-3 text-base font-medium transition-colors ${
+                      isActive(l.href)
+                        ? "bg-primary/10 text-primary"
+                        : "text-foreground hover:bg-card"
+                    }`}
+                  >
+                    {l.label}
+                  </Link>
+                ))}
+              </nav>
+
+              <div className="mt-auto border-t border-border pt-4">
+                <LangSwitcher />
+              </div>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
