@@ -52,7 +52,7 @@ export default async function AboutPage({
     {
       role: az ? "İngilis dili müəllimi" : "General English Teacher",
       company: "VIP Academy",
-      period: az ? "Sentyabr 2023 – indi" : "Sep 2023 – Present",
+      period: az ? "Sentyabr 2023 – Avqust 2026" : "Sep 2023 – Aug 2026",
     },
     {
       role: az
