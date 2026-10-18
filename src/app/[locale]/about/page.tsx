@@ -41,21 +41,18 @@ export default async function AboutPage({
   const experience = [
     {
       role: az ? "İngilis dili müəllimi" : "English Teacher",
-      company: "Khazar University",
+      company: az ? "Xəzər Universiteti" : "Khazar University",
       period: az ? "Mart 2026 – indi" : "Mar 2026 – Present",
-      type: az ? "Yarımştat" : "Part-time",
     },
     {
       role: az ? "İngilis dili müəllimi" : "English Teacher",
       company: "iTTi – International TEFL Training Institute",
       period: az ? "Sentyabr 2025 – indi" : "Sep 2025 – Present",
-      type: az ? "Yarımştat" : "Part-time",
     },
     {
       role: az ? "İngilis dili müəllimi" : "General English Teacher",
       company: "VIP Academy",
       period: az ? "Sentyabr 2023 – indi" : "Sep 2023 – Present",
-      type: az ? "Tamştat" : "Full-time",
     },
     {
       role: az
@@ -65,7 +62,6 @@ export default async function AboutPage({
         ? "Azərbaycan Dillər Universiteti"
         : "Azerbaijan University of Languages",
       period: az ? "Fevral 2025 – May 2025" : "Feb 2025 – May 2025",
-      type: az ? "Müqavilə" : "Contract",
     },
   ];
 
@@ -157,7 +153,7 @@ export default async function AboutPage({
                 <h3 className="font-bold">{e.role}</h3>
                 <p className="text-sm font-medium text-primary">{e.company}</p>
                 <p className="mt-1 text-xs text-muted">
-                  {e.period} · {e.type} · {location}
+                  {e.period} · {location}
                 </p>
               </div>
             </Reveal>
