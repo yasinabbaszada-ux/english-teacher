@@ -50,11 +50,6 @@ export default async function AboutPage({
       period: az ? "Sentyabr 2025 – indi" : "Sep 2025 – Present",
     },
     {
-      role: az ? "İngilis dili müəllimi" : "General English Teacher",
-      company: "VIP Academy",
-      period: az ? "Sentyabr 2023 – Avqust 2026" : "Sep 2023 – Aug 2026",
-    },
-    {
       role: az
         ? "İngilis dili və incəsənət müəllimi"
         : "English Language Art Teacher",
@@ -62,6 +57,11 @@ export default async function AboutPage({
         ? "Azərbaycan Dillər Universiteti"
         : "Azerbaijan University of Languages",
       period: az ? "Fevral 2025 – May 2025" : "Feb 2025 – May 2025",
+    },
+    {
+      role: az ? "İngilis dili müəllimi" : "General English Teacher",
+      company: "VIP Academy",
+      period: az ? "Sentyabr 2023 – Avqust 2026" : "Sep 2023 – Aug 2026",
     },
   ];
 
