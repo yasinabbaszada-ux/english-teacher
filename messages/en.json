@@ -21,7 +21,9 @@
     "streak": "Streak",
     "hintUsed": "Hint used",
     "level": "Level",
-    "solved": "Solved"
+    "solved": "Solved",
+    "hintPrompt": "Spell the English word from the letters",
+    "showTranslation": "Show translation"
   },
   "hero": {
     "badge": "English Teacher",

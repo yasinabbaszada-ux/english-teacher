@@ -24,22 +24,12 @@ function makeTiles(word: string): Tile[] {
   return scrambled;
 }
 
-function randomWord(level: Level, avoid?: string): GameWord {
-  const bank = LEVELS[level];
-  let w = bank[Math.floor(Math.random() * bank.length)];
-  let guard = 0;
-  while (avoid && w.en === avoid && bank.length > 1 && guard < 20) {
-    w = bank[Math.floor(Math.random() * bank.length)];
-    guard++;
-  }
-  return w;
-}
-
 export default function WordScramble() {
   const t = useTranslations("game");
 
   const [level, setLevel] = useState<Level>("A1");
   const [word, setWord] = useState<GameWord>(LEVELS.A1[0]);
+  const [queue, setQueue] = useState<GameWord[]>([]);
   const [pool, setPool] = useState<Tile[]>([]);
   const [placed, setPlaced] = useState<Tile[]>([]);
   const [status, setStatus] = useState<"playing" | "correct" | "wrong">(
@@ -49,6 +39,7 @@ export default function WordScramble() {
   const [streak, setStreak] = useState(0);
   const [solved, setSolved] = useState(0);
   const [hintUsed, setHintUsed] = useState(false);
+  const [showMeaning, setShowMeaning] = useState(false);
 
   const loadWord = useCallback((w: GameWord) => {
     setWord(w);
@@ -56,17 +47,33 @@ export default function WordScramble() {
     setPlaced([]);
     setStatus("playing");
     setHintUsed(false);
+    setShowMeaning(false);
   }, []);
 
-  // load a fresh word whenever the level changes (and on mount)
+  // Build a fresh shuffled queue whenever the level changes (and on mount),
+  // so every word appears once before any repeats.
   useEffect(() => {
-    loadWord(randomWord(level));
+    const q = shuffle(LEVELS[level]);
+    const [first, ...rest] = q;
+    loadWord(first);
+    setQueue(rest);
     setStreak(0);
   }, [level, loadWord]);
 
   const nextWord = useCallback(() => {
-    loadWord(randomWord(level, word.en));
-  }, [level, word.en, loadWord]);
+    let rest = queue;
+    if (rest.length === 0) {
+      // cycle finished — reshuffle, avoid repeating the current word first
+      let fresh = shuffle(LEVELS[level]);
+      if (fresh[0]?.en === word.en && fresh.length > 1) {
+        fresh = [fresh[1], fresh[0], ...fresh.slice(2)];
+      }
+      rest = fresh;
+    }
+    const [first, ...remaining] = rest;
+    loadWord(first);
+    setQueue(remaining);
+  }, [queue, level, word.en, loadWord]);
 
   // auto-check when all tiles are placed
   useEffect(() => {
@@ -113,25 +120,10 @@ export default function WordScramble() {
     setPool((p) => shuffle(p));
   }
 
+  // Hint = reveal the Azerbaijani translation (last-resort help).
   function useHint() {
-    if (status === "correct") return;
-    const all = [...placed, ...pool];
-    const target = word.en;
-    let correct = 0;
-    while (correct < placed.length && placed[correct].char === target[correct]) {
-      correct++;
-    }
-    const reveal = Math.min(correct + 1, target.length);
-    const working = [...all];
-    const newPlaced: Tile[] = [];
-    for (let i = 0; i < reveal; i++) {
-      const idx = working.findIndex((tl) => tl.char === target[i]);
-      if (idx !== -1) newPlaced.push(working.splice(idx, 1)[0]);
-    }
-    setPlaced(newPlaced);
-    setPool(shuffle(working));
+    setShowMeaning(true);
     setHintUsed(true);
-    setStatus("playing");
   }
 
   const stats = [
@@ -175,12 +167,21 @@ export default function WordScramble() {
         ))}
       </div>
 
-      {/* clue */}
-      <div className="mt-5 rounded-2xl border border-border bg-gradient-to-br from-primary/10 via-card to-accent/10 p-6 text-center">
-        <span className="text-xs uppercase tracking-wide text-muted">
-          {t("meaning")}
-        </span>
-        <p className="mt-1 text-2xl font-extrabold">{word.az}</p>
+      {/* clue area — meaning hidden until the hint is used */}
+      <div className="mt-5 min-h-[88px] rounded-2xl border border-border bg-gradient-to-br from-primary/10 via-card to-accent/10 p-6 text-center">
+        {showMeaning ? (
+          <>
+            <span className="text-xs uppercase tracking-wide text-muted">
+              {t("meaning")}
+            </span>
+            <p className="mt-1 text-2xl font-extrabold">{word.az}</p>
+          </>
+        ) : (
+          <>
+            <p className="text-lg font-semibold">{t("hintPrompt")}</p>
+            <p className="mt-1 text-sm text-muted">{word.en.length} ◦ ◦ ◦</p>
+          </>
+        )}
       </div>
 
       {/* answer slots */}
@@ -245,7 +246,8 @@ export default function WordScramble() {
         </button>
         <button
           onClick={useHint}
-          className="rounded-full border border-border bg-card px-4 py-2.5 text-sm font-semibold hover:border-primary hover:text-primary"
+          disabled={showMeaning}
+          className="rounded-full border border-border bg-card px-4 py-2.5 text-sm font-semibold hover:border-primary hover:text-primary disabled:opacity-50"
         >
           💡 {t("hint")}
         </button>
@@ -257,7 +259,8 @@ export default function WordScramble() {
         </button>
         <button
           onClick={nextWord}
-          className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-fg shadow-lg shadow-primary/25 transition-transform hover:scale-[1.03]"
+          disabled={status !== "correct"}
+          className="rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-fg shadow-lg shadow-primary/25 transition-transform hover:scale-[1.03] disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100"
         >
           {t("next")} →
         </button>

@@ -21,7 +21,9 @@
     "streak": "Ardıcıl",
     "hintUsed": "İpucu istifadə olundu",
     "level": "Səviyyə",
-    "solved": "Həll edilən"
+    "solved": "Həll edilən",
+    "hintPrompt": "Hərflərdən İngilis sözünü düz",
+    "showTranslation": "Tərcüməyə bax"
   },
   "hero": {
     "badge": "İngilis dili müəllimi",
