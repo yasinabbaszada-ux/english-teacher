@@ -25,7 +25,6 @@ export default async function HomePage({
 
   const heroTitle = loc(settings, "hero_title", l) || t("hero.title");
   const heroSubtitle = loc(settings, "hero_subtitle", l) || t("hero.subtitle");
-  const aboutBody = loc(settings, "about", l) || t("about.body");
 
   return (
     <>
@@ -42,16 +41,6 @@ export default async function HomePage({
           { value: `${materials.length}+`, label: t("hero.stat3") },
         ]}
       />
-
-      {/* About */}
-      <section id="about" className="mx-auto max-w-6xl px-4 py-16">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-extrabold tracking-tight">
-            {t("about.title")}
-          </h2>
-          <p className="mt-4 text-lg leading-relaxed text-muted">{aboutBody}</p>
-        </Reveal>
-      </section>
 
       {/* Featured materials */}
       <section className="mx-auto max-w-6xl px-4 py-12">

@@ -33,6 +33,8 @@ export default async function AboutPage({
     t("about.h2"),
     t("about.h3"),
     t("about.h4"),
+    t("about.h5"),
+    t("about.h6"),
   ];
 
   const az = l === "az";
@@ -117,7 +119,10 @@ export default async function AboutPage({
             {aboutBody}
           </p>
 
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+          <h2 className="mt-8 text-sm font-bold uppercase tracking-wide text-primary">
+            {t("about.highlightsTitle")}
+          </h2>
+          <ul className="mt-3 grid gap-3 sm:grid-cols-2">
             {highlights.map((h) => (
               <li key={h} className="flex items-start gap-2 text-sm">
                 <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary/15 text-xs text-primary">
