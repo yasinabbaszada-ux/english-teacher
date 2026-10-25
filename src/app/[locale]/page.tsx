@@ -80,40 +80,6 @@ export default async function HomePage({
           </Link>
         </div>
       </section>
-
-      {/* Contact CTA */}
-      <section id="contact" className="mx-auto max-w-6xl px-4 py-16">
-        <Reveal>
-          <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-card to-accent/10 p-10 text-center sm:p-14">
-            <h2 className="text-3xl font-extrabold tracking-tight">
-              {t("contact.title")}
-            </h2>
-            <p className="mx-auto mt-3 max-w-md text-muted">
-              {t("contact.subtitle")}
-            </p>
-            <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-              {settings.whatsapp && (
-                <a
-                  href={`https://wa.me/${settings.whatsapp}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-fg shadow-lg shadow-primary/25 transition-transform hover:scale-[1.03]"
-                >
-                  {t("contact.cta")}
-                </a>
-              )}
-              {settings.phone && (
-                <a
-                  href={`tel:${settings.phone}`}
-                  className="rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold hover:border-primary hover:text-primary"
-                >
-                  {settings.phone}
-                </a>
-              )}
-            </div>
-          </div>
-        </Reveal>
-      </section>
     </>
   );
 }

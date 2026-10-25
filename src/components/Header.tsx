@@ -16,12 +16,11 @@ export default function Header() {
     { href: "/", label: t("home") },
     { href: "/about", label: t("about") },
     { href: "/materials", label: t("materials") },
-    { href: "/#contact", label: t("contact") },
+    { href: "/contact", label: t("contact") },
   ] as const;
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
-    if (href.startsWith("/#")) return false;
     return pathname.startsWith(href);
   };
 
