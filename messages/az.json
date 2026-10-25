@@ -19,7 +19,9 @@
     "wrong": "Yenidən cəhd et",
     "score": "Xal",
     "streak": "Ardıcıl",
-    "hintUsed": "İpucu istifadə olundu"
+    "hintUsed": "İpucu istifadə olundu",
+    "level": "Səviyyə",
+    "solved": "Həll edilən"
   },
   "hero": {
     "badge": "İngilis dili müəllimi",

@@ -2,48 +2,9 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { LEVELS, LEVEL_ORDER, type GameWord, type Level } from "@/lib/words";
 
-type Word = { en: string; az: string };
 type Tile = { id: number; char: string };
-
-const WORDS: Word[] = [
-  { en: "apple", az: "alma" },
-  { en: "house", az: "ev" },
-  { en: "water", az: "su" },
-  { en: "friend", az: "dost" },
-  { en: "school", az: "məktəb" },
-  { en: "teacher", az: "müəllim" },
-  { en: "student", az: "tələbə" },
-  { en: "happy", az: "xoşbəxt" },
-  { en: "orange", az: "portağal" },
-  { en: "family", az: "ailə" },
-  { en: "flower", az: "gül" },
-  { en: "winter", az: "qış" },
-  { en: "summer", az: "yay" },
-  { en: "bread", az: "çörək" },
-  { en: "table", az: "masa" },
-  { en: "window", az: "pəncərə" },
-  { en: "garden", az: "bağ" },
-  { en: "music", az: "musiqi" },
-  { en: "pencil", az: "karandaş" },
-  { en: "yellow", az: "sarı" },
-  { en: "bridge", az: "körpü" },
-  { en: "island", az: "ada" },
-  { en: "morning", az: "səhər" },
-  { en: "holiday", az: "tətil" },
-  { en: "kitchen", az: "mətbəx" },
-  { en: "picture", az: "şəkil" },
-  { en: "animal", az: "heyvan" },
-  { en: "language", az: "dil" },
-  { en: "country", az: "ölkə" },
-  { en: "weather", az: "hava" },
-  { en: "mountain", az: "dağ" },
-  { en: "river", az: "çay" },
-  { en: "science", az: "elm" },
-  { en: "colour", az: "rəng" },
-  { en: "doctor", az: "həkim" },
-  { en: "market", az: "bazar" },
-];
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -57,17 +18,28 @@ function shuffle<T>(arr: T[]): T[] {
 function makeTiles(word: string): Tile[] {
   const tiles = word.split("").map((char, id) => ({ id, char }));
   let scrambled = shuffle(tiles);
-  // avoid an accidental already-solved order
   if (word.length > 1 && scrambled.map((t) => t.char).join("") === word) {
     scrambled = shuffle(tiles);
   }
   return scrambled;
 }
 
+function randomWord(level: Level, avoid?: string): GameWord {
+  const bank = LEVELS[level];
+  let w = bank[Math.floor(Math.random() * bank.length)];
+  let guard = 0;
+  while (avoid && w.en === avoid && bank.length > 1 && guard < 20) {
+    w = bank[Math.floor(Math.random() * bank.length)];
+    guard++;
+  }
+  return w;
+}
+
 export default function WordScramble() {
   const t = useTranslations("game");
 
-  const [word, setWord] = useState<Word>(WORDS[0]);
+  const [level, setLevel] = useState<Level>("A1");
+  const [word, setWord] = useState<GameWord>(LEVELS.A1[0]);
   const [pool, setPool] = useState<Tile[]>([]);
   const [placed, setPlaced] = useState<Tile[]>([]);
   const [status, setStatus] = useState<"playing" | "correct" | "wrong">(
@@ -75,9 +47,10 @@ export default function WordScramble() {
   );
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
+  const [solved, setSolved] = useState(0);
   const [hintUsed, setHintUsed] = useState(false);
 
-  const loadWord = useCallback((w: Word) => {
+  const loadWord = useCallback((w: GameWord) => {
     setWord(w);
     setPool(makeTiles(w.en));
     setPlaced([]);
@@ -85,18 +58,15 @@ export default function WordScramble() {
     setHintUsed(false);
   }, []);
 
-  // first word on mount
+  // load a fresh word whenever the level changes (and on mount)
   useEffect(() => {
-    loadWord(WORDS[Math.floor(Math.random() * WORDS.length)]);
-  }, [loadWord]);
+    loadWord(randomWord(level));
+    setStreak(0);
+  }, [level, loadWord]);
 
   const nextWord = useCallback(() => {
-    let w = word;
-    while (w.en === word.en && WORDS.length > 1) {
-      w = WORDS[Math.floor(Math.random() * WORDS.length)];
-    }
-    loadWord(w);
-  }, [word, loadWord]);
+    loadWord(randomWord(level, word.en));
+  }, [level, word.en, loadWord]);
 
   // auto-check when all tiles are placed
   useEffect(() => {
@@ -107,6 +77,7 @@ export default function WordScramble() {
       setStatus("correct");
       setScore((s) => s + (hintUsed ? 5 : 10));
       setStreak((s) => s + 1);
+      setSolved((s) => s + 1);
       const timer = setTimeout(nextWord, 1300);
       return () => clearTimeout(timer);
     } else {
@@ -146,7 +117,6 @@ export default function WordScramble() {
     if (status === "correct") return;
     const all = [...placed, ...pool];
     const target = word.en;
-    // longest correct leading prefix currently placed
     let correct = 0;
     while (correct < placed.length && placed[correct].char === target[correct]) {
       correct++;
@@ -164,24 +134,49 @@ export default function WordScramble() {
     setStatus("playing");
   }
 
+  const stats = [
+    { label: t("score"), value: score, color: "text-primary" },
+    { label: t("streak"), value: `${streak}🔥`, color: "text-accent" },
+    { label: t("solved"), value: solved, color: "text-foreground" },
+  ];
+
   return (
-    <div className="mx-auto max-w-xl">
+    <div className="mx-auto max-w-xl rounded-3xl border border-border bg-background/80 p-6 shadow-xl backdrop-blur-md sm:p-8">
+      {/* level selector */}
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        <span className="mr-1 text-xs font-semibold uppercase tracking-wide text-muted">
+          {t("level")}
+        </span>
+        {LEVEL_ORDER.map((lv) => (
+          <button
+            key={lv}
+            onClick={() => setLevel(lv)}
+            className={`rounded-full px-3.5 py-1.5 text-sm font-bold transition-colors ${
+              lv === level
+                ? "bg-primary text-primary-fg shadow"
+                : "border border-border bg-card text-muted hover:text-foreground"
+            }`}
+          >
+            {lv}
+          </button>
+        ))}
+      </div>
+
       {/* scoreboard */}
-      <div className="mb-6 flex items-center justify-center gap-3">
-        <div className="rounded-xl border border-border bg-card px-4 py-2 text-center">
-          <div className="text-xs text-muted">{t("score")}</div>
-          <div className="text-xl font-extrabold text-primary">{score}</div>
-        </div>
-        <div className="rounded-xl border border-border bg-card px-4 py-2 text-center">
-          <div className="text-xs text-muted">{t("streak")}</div>
-          <div className="text-xl font-extrabold text-accent">
-            {streak}🔥
+      <div className="mt-5 grid grid-cols-3 gap-3">
+        {stats.map((s) => (
+          <div
+            key={s.label}
+            className="rounded-xl border border-border bg-card px-2 py-2 text-center"
+          >
+            <div className="text-[11px] text-muted">{s.label}</div>
+            <div className={`text-lg font-extrabold ${s.color}`}>{s.value}</div>
           </div>
-        </div>
+        ))}
       </div>
 
       {/* clue */}
-      <div className="rounded-2xl border border-border bg-card p-6 text-center">
+      <div className="mt-5 rounded-2xl border border-border bg-gradient-to-br from-primary/10 via-card to-accent/10 p-6 text-center">
         <span className="text-xs uppercase tracking-wide text-muted">
           {t("meaning")}
         </span>
@@ -196,9 +191,9 @@ export default function WordScramble() {
             <button
               key={tile.id}
               onClick={() => removeTile(i)}
-              className={`grid h-12 w-12 place-items-center rounded-xl text-xl font-bold uppercase shadow-sm transition-transform hover:scale-105 ${
+              className={`grid h-12 w-12 place-items-center rounded-xl text-xl font-bold uppercase shadow-sm transition-all hover:scale-105 ${
                 status === "correct"
-                  ? "bg-green-500 text-white"
+                  ? "scale-110 bg-green-500 text-white"
                   : status === "wrong"
                     ? "bg-red-500/90 text-white"
                     : "bg-primary text-primary-fg"
@@ -228,12 +223,12 @@ export default function WordScramble() {
       </p>
 
       {/* letter pool */}
-      <div className="mt-2 flex flex-wrap justify-center gap-2">
+      <div className="mt-2 flex min-h-[56px] flex-wrap justify-center gap-2">
         {pool.map((tile, i) => (
           <button
             key={tile.id}
             onClick={() => placeTile(i)}
-            className="grid h-12 w-12 place-items-center rounded-xl border border-border bg-background text-xl font-bold uppercase shadow-sm transition-transform hover:scale-105 hover:border-primary"
+            className="grid h-12 w-12 place-items-center rounded-xl border border-border bg-card text-xl font-bold uppercase shadow-sm transition-transform hover:scale-105 hover:border-primary"
           >
             {tile.char}
           </button>
@@ -241,22 +236,22 @@ export default function WordScramble() {
       </div>
 
       {/* controls */}
-      <div className="mt-8 flex flex-wrap justify-center gap-3">
+      <div className="mt-7 flex flex-wrap justify-center gap-2.5">
         <button
           onClick={shufflePool}
-          className="rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary hover:text-primary"
+          className="rounded-full border border-border bg-card px-4 py-2.5 text-sm font-semibold hover:border-primary hover:text-primary"
         >
           🔀 {t("shuffle")}
         </button>
         <button
           onClick={useHint}
-          className="rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary hover:text-primary"
+          className="rounded-full border border-border bg-card px-4 py-2.5 text-sm font-semibold hover:border-primary hover:text-primary"
         >
           💡 {t("hint")}
         </button>
         <button
           onClick={clearAll}
-          className="rounded-full border border-border bg-card px-5 py-2.5 text-sm font-semibold hover:border-primary hover:text-primary"
+          className="rounded-full border border-border bg-card px-4 py-2.5 text-sm font-semibold hover:border-primary hover:text-primary"
         >
           ✕ {t("clear")}
         </button>

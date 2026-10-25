@@ -19,7 +19,9 @@
     "wrong": "Try again",
     "score": "Score",
     "streak": "Streak",
-    "hintUsed": "Hint used"
+    "hintUsed": "Hint used",
+    "level": "Level",
+    "solved": "Solved"
   },
   "hero": {
     "badge": "English Teacher",
