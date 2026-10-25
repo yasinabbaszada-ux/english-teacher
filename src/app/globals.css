@@ -77,7 +77,16 @@ body {
 .animate-float-slow { animation: float-slow 16s ease-in-out infinite; }
 .animate-float-slower { animation: float-slow 24s ease-in-out infinite reverse; }
 
+/* Slow zoom/pan (Ken Burns) for the game background */
+@keyframes kenburns {
+  0%   { transform: scale(1.08) translate(0, 0); }
+  50%  { transform: scale(1.18) translate(-1.5%, -1%); }
+  100% { transform: scale(1.08) translate(0, 0); }
+}
+.animate-kenburns { animation: kenburns 28s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   .animate-float-slow,
-  .animate-float-slower { animation: none; }
+  .animate-float-slower,
+  .animate-kenburns { animation: none; }
 }
