@@ -38,7 +38,12 @@ export default async function AboutPage({
   const az = l === "az";
   const location = az ? "Bakı, Azərbaycan" : "Baku, Azerbaijan";
 
-  const experience = [
+  const experience: {
+    role: string;
+    company: string;
+    period: string;
+    place?: string;
+  }[] = [
     {
       role: az ? "İngilis dili müəllimi" : "English Teacher",
       company: az ? "Xəzər Universiteti" : "Khazar University",
@@ -62,6 +67,12 @@ export default async function AboutPage({
       role: az ? "İngilis dili müəllimi" : "General English Teacher",
       company: "VIP Academy",
       period: az ? "Sentyabr 2023 – Avqust 2026" : "Sep 2023 – Aug 2026",
+    },
+    {
+      role: az ? "Onlayn İngilis dili müəllimi" : "Online English Instructor",
+      company: az ? "Fərdi / onlayn dərslər" : "Private / online lessons",
+      period: az ? "2020 – indi" : "2020 – Present",
+      place: az ? "Onlayn" : "Online",
     },
   ];
 
@@ -102,7 +113,9 @@ export default async function AboutPage({
           <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
             {t("about.title")}
           </h1>
-          <p className="mt-5 text-lg leading-relaxed text-muted">{aboutBody}</p>
+          <p className="mt-5 whitespace-pre-line text-lg leading-relaxed text-muted">
+            {aboutBody}
+          </p>
 
           <ul className="mt-6 grid gap-3 sm:grid-cols-2">
             {highlights.map((h) => (
@@ -153,7 +166,7 @@ export default async function AboutPage({
                 <h3 className="font-bold">{e.role}</h3>
                 <p className="text-sm font-medium text-primary">{e.company}</p>
                 <p className="mt-1 text-xs text-muted">
-                  {e.period} · {location}
+                  {e.period} · {e.place ?? location}
                 </p>
               </div>
             </Reveal>

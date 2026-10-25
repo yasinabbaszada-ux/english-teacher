@@ -37,7 +37,7 @@ export default async function HomePage({
         ctaContact={t("hero.ctaContact")}
         whatsapp={settings.whatsapp}
         stats={[
-          { value: `${settings.years_experience ?? 3}+`, label: t("hero.stat1") },
+          { value: `${settings.years_experience ?? 5}+`, label: t("hero.stat1") },
           { value: `${settings.students_count ?? 100}+`, label: t("hero.stat2") },
           { value: `${materials.length}+`, label: t("hero.stat3") },
         ]}
