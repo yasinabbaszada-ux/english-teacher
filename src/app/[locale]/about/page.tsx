@@ -35,6 +35,9 @@ export default async function AboutPage({
     t("about.h4"),
     t("about.h5"),
     t("about.h6"),
+    t("about.h7"),
+    t("about.h8"),
+    t("about.h9"),
   ];
 
   const az = l === "az";
