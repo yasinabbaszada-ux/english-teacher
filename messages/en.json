@@ -77,7 +77,18 @@
     "phone": "Phone",
     "whatsapp": "WhatsApp",
     "email": "Email",
-    "cta": "Message on WhatsApp"
+    "cta": "Message on WhatsApp",
+    "form": {
+      "title": "Ask a question",
+      "subtitle": "Write your question and we'll reply shortly.",
+      "name": "Your name",
+      "contact": "Contact (phone or email)",
+      "message": "Your message / question",
+      "send": "Send",
+      "sending": "Sending...",
+      "success": "Your message has been sent! We'll get back to you soon.",
+      "error": "Something went wrong. Please try again."
+    }
   },
   "footer": {
     "rights": "All rights reserved.",

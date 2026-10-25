@@ -62,3 +62,12 @@ export type Certificate = {
   sort_order: number;
   created_at: string;
 };
+
+export type Message = {
+  id: string;
+  name: string | null;
+  contact: string | null;
+  body: string;
+  is_read: boolean;
+  created_at: string;
+};

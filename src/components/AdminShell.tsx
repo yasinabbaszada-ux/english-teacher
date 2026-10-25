@@ -6,6 +6,7 @@ const nav = [
   { href: "/admin", label: "İdarə paneli" },
   { href: "/admin/materials", label: "Materiallar" },
   { href: "/admin/certificates", label: "Sertifikatlar" },
+  { href: "/admin/messages", label: "Mesajlar" },
   { href: "/admin/codes", label: "Giriş kodları" },
   { href: "/admin/settings", label: "Parametrlər" },
 ];

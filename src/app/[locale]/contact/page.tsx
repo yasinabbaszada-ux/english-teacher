@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getSettings } from "@/lib/data";
 import Reveal from "@/components/Reveal";
+import ContactForm from "@/components/ContactForm";
 
 export const dynamic = "force-dynamic";
 
@@ -100,21 +101,11 @@ export default async function ContactPage({
         </Reveal>
       )}
 
-      {settings.whatsapp && (
-        <Reveal delay={0.25}>
-          <div className="mt-12 rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-card to-accent/10 p-10 text-center">
-            <p className="text-lg font-semibold">{t("contact.subtitle")}</p>
-            <a
-              href={`https://wa.me/${settings.whatsapp}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-block rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-fg shadow-lg shadow-primary/25 transition-transform hover:scale-[1.03]"
-            >
-              {t("contact.cta")}
-            </a>
-          </div>
-        </Reveal>
-      )}
+      <Reveal delay={0.25}>
+        <div className="mt-12">
+          <ContactForm />
+        </div>
+      </Reveal>
     </div>
   );
 }

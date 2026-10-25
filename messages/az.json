@@ -77,7 +77,18 @@
     "phone": "Telefon",
     "whatsapp": "WhatsApp",
     "email": "E-poçt",
-    "cta": "WhatsApp-da yaz"
+    "cta": "WhatsApp-da yaz",
+    "form": {
+      "title": "Sual göndər",
+      "subtitle": "Sualınızı yazın, qısa zamanda cavab verəcəyik.",
+      "name": "Adınız",
+      "contact": "Əlaqə (telefon və ya e-poçt)",
+      "message": "Mesajınız / sualınız",
+      "send": "Göndər",
+      "sending": "Göndərilir...",
+      "success": "Mesajınız göndərildi! Tezliklə sizinlə əlaqə saxlanılacaq.",
+      "error": "Xəta baş verdi. Zəhmət olmasa yenidən cəhd edin."
+    }
   },
   "footer": {
     "rights": "Bütün hüquqlar qorunur.",

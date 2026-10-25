@@ -232,3 +232,24 @@ export async function deleteCertificate(formData: FormData) {
   revalidatePath("/admin/certificates");
   revalidatePath("/", "layout");
 }
+
+/* --------------------------- messages --------------------------- */
+
+export async function toggleMessageRead(formData: FormData) {
+  await requireAdmin();
+  const id = str(formData.get("id"));
+  const isRead = formData.get("is_read") === "true";
+  if (!id) return;
+  const supabase = createAdminClient();
+  await supabase.from("messages").update({ is_read: !isRead }).eq("id", id);
+  revalidatePath("/admin/messages");
+}
+
+export async function deleteMessage(formData: FormData) {
+  await requireAdmin();
+  const id = str(formData.get("id"));
+  if (!id) return;
+  const supabase = createAdminClient();
+  await supabase.from("messages").delete().eq("id", id);
+  revalidatePath("/admin/messages");
+}
