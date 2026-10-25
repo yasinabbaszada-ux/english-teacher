@@ -3,7 +3,23 @@
     "home": "Home",
     "materials": "Materials",
     "about": "About",
-    "contact": "Contact"
+    "contact": "Contact",
+    "game": "Game"
+  },
+  "game": {
+    "title": "Word game",
+    "subtitle": "Arrange the scrambled letters to find the English word",
+    "meaning": "Meaning",
+    "check": "Check",
+    "shuffle": "Shuffle",
+    "hint": "Hint",
+    "next": "Next word",
+    "clear": "Clear",
+    "correct": "Well done! Correct 🎉",
+    "wrong": "Try again",
+    "score": "Score",
+    "streak": "Streak",
+    "hintUsed": "Hint used"
   },
   "hero": {
     "badge": "English Teacher",

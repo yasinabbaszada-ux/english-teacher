@@ -3,7 +3,23 @@
     "home": "Ana səhifə",
     "materials": "Materiallar",
     "about": "Haqqımda",
-    "contact": "Əlaqə"
+    "contact": "Əlaqə",
+    "game": "Oyun"
+  },
+  "game": {
+    "title": "Söz oyunu",
+    "subtitle": "Qarışıq hərfləri düzüb İngilis sözünü tap",
+    "meaning": "Mənası",
+    "check": "Yoxla",
+    "shuffle": "Qarışdır",
+    "hint": "İpucu",
+    "next": "Növbəti söz",
+    "clear": "Təmizlə",
+    "correct": "Afərin! Düzdür 🎉",
+    "wrong": "Yenidən cəhd et",
+    "score": "Xal",
+    "streak": "Ardıcıl",
+    "hintUsed": "İpucu istifadə olundu"
   },
   "hero": {
     "badge": "İngilis dili müəllimi",
