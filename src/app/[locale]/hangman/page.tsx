@@ -1,5 +1,6 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import HangmanGame from "@/components/HangmanGame";
+import AnimatedTitle from "@/components/AnimatedTitle";
 
 export default async function HangmanPage({
   params,
@@ -25,11 +26,9 @@ export default async function HangmanPage({
       />
 
       <div className="mx-auto max-w-5xl px-4 py-14">
-        <header className="mb-10 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/90 px-6 py-3 text-2xl font-extrabold tracking-tight text-primary shadow-sm backdrop-blur sm:text-3xl">
-            🪢 {t("title")}
-          </span>
-          <p className="mx-auto mt-4 inline-block rounded-full bg-card/85 px-4 py-2 text-sm font-semibold text-foreground backdrop-blur">
+        <header className="mb-10 flex flex-col items-center text-center">
+          <AnimatedTitle text={t("title")} />
+          <p className="mx-auto mt-5 inline-block rounded-full bg-card/85 px-4 py-2 text-sm font-semibold text-foreground backdrop-blur">
             {t("subtitle")}
           </p>
         </header>
