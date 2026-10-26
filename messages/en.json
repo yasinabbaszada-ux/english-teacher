@@ -6,7 +6,17 @@
     "contact": "Contact",
     "game": "Word game",
     "hangman": "Hangman",
+    "memory": "Matching",
     "games": "Games"
+  },
+  "memory": {
+    "title": "Matching",
+    "subtitle": "Match each English word with its Azerbaijani meaning!",
+    "level": "Level",
+    "moves": "Moves",
+    "pairs": "Pairs found",
+    "won": "Congratulations! You found them all 🎉",
+    "newGame": "New game"
   },
   "hangman": {
     "title": "Hangman",

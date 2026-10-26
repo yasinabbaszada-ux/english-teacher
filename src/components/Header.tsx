@@ -21,9 +21,13 @@ export default function Header() {
   const gameLinks = [
     { href: "/game", label: t("game") },
     { href: "/hangman", label: t("hangman") },
+    { href: "/memory", label: t("memory") },
   ] as const;
 
-  const isGamePath = pathname === "/game" || pathname === "/hangman";
+  const isGamePath =
+    pathname === "/game" ||
+    pathname === "/hangman" ||
+    pathname === "/memory";
   const [gamesOpen, setGamesOpen] = useState(isGamePath);
 
   const isActive = (href: string) =>

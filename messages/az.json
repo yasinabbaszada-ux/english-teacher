@@ -6,7 +6,17 @@
     "contact": "Əlaqə",
     "game": "Söz oyunu",
     "hangman": "Dar ağacı",
+    "memory": "Uyğunlaşdırma",
     "games": "Oyunlar"
+  },
+  "memory": {
+    "title": "Uyğunlaşdırma",
+    "subtitle": "İngilis sözünü Azərbaycanca mənası ilə cütləşdir!",
+    "level": "Səviyyə",
+    "moves": "Gediş",
+    "pairs": "Tapılan cüt",
+    "won": "Təbriklər! Hamısını tapdın 🎉",
+    "newGame": "Yeni oyun"
   },
   "hangman": {
     "title": "Dar ağacı",
