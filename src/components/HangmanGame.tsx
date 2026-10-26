@@ -136,15 +136,29 @@ export default function HangmanGame() {
   }
 
   const stats = [
-    { label: t("score"), value: score, color: "text-primary" },
-    { label: t("streak"), value: `${streak}🔥`, color: "text-accent" },
-    { label: t("solved"), value: solved, color: "text-foreground" },
+    { icon: "⭐", label: t("score"), value: score },
+    { icon: "🔥", label: t("streak"), value: streak },
+    { icon: "✅", label: t("solved"), value: solved },
   ];
 
   return (
-    <div className="mx-auto max-w-xl rounded-3xl border border-border bg-background/80 p-6 shadow-xl backdrop-blur-md sm:p-8">
-      {/* level selector */}
+    <div className="mx-auto max-w-xl rounded-3xl border-2 border-accent/30 bg-background/85 p-6 shadow-xl backdrop-blur-md sm:p-8">
+      {/* scoreboard — inline chips (distinct from the word game) */}
       <div className="flex flex-wrap items-center justify-center gap-2">
+        {stats.map((s) => (
+          <span
+            key={s.label}
+            className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-3.5 py-1.5 text-sm"
+          >
+            <span>{s.icon}</span>
+            <span className="font-extrabold">{s.value}</span>
+            <span className="text-muted">{s.label}</span>
+          </span>
+        ))}
+      </div>
+
+      {/* level selector */}
+      <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
         <span className="mr-1 text-xs font-semibold uppercase tracking-wide text-muted">
           {t("level")}
         </span>
@@ -154,25 +168,12 @@ export default function HangmanGame() {
             onClick={() => setLevel(lv)}
             className={`rounded-full px-3.5 py-1.5 text-sm font-bold transition-colors ${
               lv === level
-                ? "bg-primary text-primary-fg shadow"
+                ? "bg-accent text-black shadow"
                 : "border border-border bg-card text-muted hover:text-foreground"
             }`}
           >
             {lv}
           </button>
-        ))}
-      </div>
-
-      {/* scoreboard */}
-      <div className="mt-5 grid grid-cols-3 gap-3">
-        {stats.map((s) => (
-          <div
-            key={s.label}
-            className="rounded-xl border border-border bg-card px-2 py-2 text-center"
-          >
-            <div className="text-[11px] text-muted">{s.label}</div>
-            <div className={`text-lg font-extrabold ${s.color}`}>{s.value}</div>
-          </div>
         ))}
       </div>
 

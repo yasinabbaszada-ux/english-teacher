@@ -12,16 +12,16 @@ export default async function HangmanPage({
 
   return (
     <div className="relative min-h-[calc(100vh-4rem)] overflow-hidden">
-      {/* animated background scene */}
+      {/* background scene — full image, no zoom so the chalkboard stays visible */}
       <div
         aria-hidden
-        className="animate-kenburns pointer-events-none absolute inset-0 -z-20 scale-110 bg-cover bg-center blur-[2px]"
+        className="pointer-events-none absolute inset-0 -z-20 bg-cover bg-center"
         style={{ backgroundImage: "url('/hangman-bg.png')" }}
       />
       {/* light readability overlay */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-background/15 via-background/25 to-background/60"
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-background/20 via-background/30 to-background/70"
       />
 
       <div className="mx-auto max-w-5xl px-4 py-14">
