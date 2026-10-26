@@ -11,7 +11,7 @@ export default async function HangmanPage({
   const t = await getTranslations("hangman");
 
   return (
-    <div className="relative min-h-[calc(100vh-4rem)] overflow-hidden">
+    <div className="game-immersive relative min-h-[calc(100vh-4rem)] overflow-hidden">
       {/* background scene — full image, no zoom so the chalkboard stays visible */}
       <div
         aria-hidden

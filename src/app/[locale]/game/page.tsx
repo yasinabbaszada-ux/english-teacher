@@ -12,7 +12,7 @@ export default async function GamePage({
   const t = await getTranslations("game");
 
   return (
-    <div className="relative min-h-[calc(100vh-4rem)] overflow-hidden">
+    <div className="game-immersive relative min-h-[calc(100vh-4rem)] overflow-hidden">
       {/* animated background scene */}
       <div
         aria-hidden

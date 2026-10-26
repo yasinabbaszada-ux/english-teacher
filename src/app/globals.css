@@ -60,6 +60,11 @@
   border-color: var(--border);
 }
 
+/* Hide the site footer on immersive game pages */
+body:has(.game-immersive) footer {
+  display: none;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
