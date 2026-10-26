@@ -142,7 +142,7 @@ export default function HangmanGame() {
   ];
 
   return (
-    <div className="mx-auto max-w-xl rounded-3xl border-2 border-accent/30 bg-background/85 p-6 shadow-xl backdrop-blur-md sm:p-8">
+    <div className="mx-auto max-w-xl rounded-3xl border-2 border-accent/30 bg-background/60 p-6 shadow-xl backdrop-blur-lg sm:p-8">
       {/* scoreboard — inline chips (distinct from the word game) */}
       <div className="flex flex-wrap items-center justify-center gap-2">
         {stats.map((s) => (
