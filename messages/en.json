@@ -4,7 +4,21 @@
     "materials": "Materials",
     "about": "About",
     "contact": "Contact",
-    "game": "Game"
+    "game": "Word game",
+    "hangman": "Hangman"
+  },
+  "hangman": {
+    "title": "Hangman",
+    "subtitle": "Guess the letters and save the word!",
+    "meaning": "Meaning",
+    "won": "Well done! You guessed it 🎉",
+    "lost": "You lost! The word was:",
+    "level": "Level",
+    "score": "Score",
+    "streak": "Streak",
+    "solved": "Solved",
+    "wrongLeft": "Tries left",
+    "next": "Next word"
   },
   "game": {
     "title": "Word game",

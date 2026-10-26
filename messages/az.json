@@ -4,7 +4,21 @@
     "materials": "Materiallar",
     "about": "Haqqımda",
     "contact": "Əlaqə",
-    "game": "Oyun"
+    "game": "Söz oyunu",
+    "hangman": "Dar ağacı"
+  },
+  "hangman": {
+    "title": "Dar ağacı",
+    "subtitle": "Hərfləri tap, sözü dar ağacından xilas et!",
+    "meaning": "Mənası",
+    "won": "Afərin! Sözü tapdın 🎉",
+    "lost": "Uduzdun! Söz bu idi:",
+    "level": "Səviyyə",
+    "score": "Xal",
+    "streak": "Ardıcıl",
+    "solved": "Həll edilən",
+    "wrongLeft": "Qalan cəhd",
+    "next": "Növbəti söz"
   },
   "game": {
     "title": "Söz oyunu",

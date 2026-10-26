@@ -17,6 +17,7 @@ export default function Header() {
     { href: "/about", label: t("about") },
     { href: "/materials", label: t("materials") },
     { href: "/game", label: t("game") },
+    { href: "/hangman", label: t("hangman") },
     { href: "/contact", label: t("contact") },
   ] as const;
 
