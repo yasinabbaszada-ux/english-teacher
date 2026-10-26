@@ -28,13 +28,10 @@ export default async function MemoryPage({
 
       <div className="mx-auto max-w-5xl px-4 py-14">
         <header className="mb-10 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-sm font-medium text-primary">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-2xl font-extrabold tracking-tight text-primary shadow-sm sm:text-3xl">
             🃏 {t("title")}
           </span>
-          <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
-            {t("title")}
-          </h1>
-          <p className="mt-2 text-muted">{t("subtitle")}</p>
+          <p className="mt-4 text-muted">{t("subtitle")}</p>
         </header>
 
         <MemoryGame />

@@ -26,16 +26,10 @@ export default async function HangmanPage({
 
       <div className="mx-auto max-w-5xl px-4 py-14">
         <header className="mb-10 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/90 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/90 px-6 py-3 text-2xl font-extrabold tracking-tight text-primary shadow-sm backdrop-blur sm:text-3xl">
             🪢 {t("title")}
           </span>
-          <h1
-            className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl"
-            style={{ textShadow: "0 2px 16px var(--background)" }}
-          >
-            {t("title")}
-          </h1>
-          <p className="mx-auto mt-3 inline-block rounded-full bg-card/85 px-4 py-2 text-sm font-semibold text-foreground backdrop-blur">
+          <p className="mx-auto mt-4 inline-block rounded-full bg-card/85 px-4 py-2 text-sm font-semibold text-foreground backdrop-blur">
             {t("subtitle")}
           </p>
         </header>
