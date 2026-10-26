@@ -12,19 +12,22 @@ export default function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
-  const links = [
+  const topLinks = [
     { href: "/", label: t("home") },
     { href: "/about", label: t("about") },
     { href: "/materials", label: t("materials") },
-    { href: "/game", label: t("game") },
-    { href: "/hangman", label: t("hangman") },
-    { href: "/contact", label: t("contact") },
   ] as const;
 
-  const isActive = (href: string) => {
-    if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
-  };
+  const gameLinks = [
+    { href: "/game", label: t("game") },
+    { href: "/hangman", label: t("hangman") },
+  ] as const;
+
+  const isGamePath = pathname === "/game" || pathname === "/hangman";
+  const [gamesOpen, setGamesOpen] = useState(isGamePath);
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   // Lock body scroll while the drawer is open.
   useEffect(() => {
@@ -33,6 +36,11 @@ export default function Header() {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  const linkCls = (active: boolean) =>
+    `rounded-xl px-4 py-3 text-base font-medium transition-colors ${
+      active ? "bg-primary/10 text-primary" : "text-foreground hover:bg-card"
+    }`;
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
@@ -99,20 +107,69 @@ export default function Header() {
               </div>
 
               <nav className="mt-8 flex flex-col gap-1">
-                {links.map((l) => (
+                {topLinks.map((l) => (
                   <Link
                     key={l.href}
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className={`rounded-xl px-4 py-3 text-base font-medium transition-colors ${
-                      isActive(l.href)
-                        ? "bg-primary/10 text-primary"
-                        : "text-foreground hover:bg-card"
-                    }`}
+                    className={linkCls(isActive(l.href))}
                   >
                     {l.label}
                   </Link>
                 ))}
+
+                {/* Games group */}
+                <button
+                  onClick={() => setGamesOpen((v) => !v)}
+                  className={`flex items-center justify-between ${linkCls(
+                    isGamePath,
+                  )}`}
+                >
+                  <span>🎮 {t("games")}</span>
+                  <span
+                    className={`transition-transform ${
+                      gamesOpen ? "rotate-180" : ""
+                    }`}
+                  >
+                    ▾
+                  </span>
+                </button>
+                <AnimatePresence initial={false}>
+                  {gamesOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="ml-4 flex flex-col gap-1 border-l border-border pl-2">
+                        {gameLinks.map((l) => (
+                          <Link
+                            key={l.href}
+                            href={l.href}
+                            onClick={() => setOpen(false)}
+                            className={`rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
+                              isActive(l.href)
+                                ? "bg-primary/10 text-primary"
+                                : "text-muted hover:bg-card hover:text-foreground"
+                            }`}
+                          >
+                            {l.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <Link
+                  href="/contact"
+                  onClick={() => setOpen(false)}
+                  className={linkCls(isActive("/contact"))}
+                >
+                  {t("contact")}
+                </Link>
               </nav>
 
               <div className="mt-auto border-t border-border pt-4">

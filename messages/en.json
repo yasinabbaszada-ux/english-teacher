@@ -5,12 +5,13 @@
     "about": "About",
     "contact": "Contact",
     "game": "Word game",
-    "hangman": "Hangman"
+    "hangman": "Hangman",
+    "games": "Games"
   },
   "hangman": {
     "title": "Hangman",
-    "subtitle": "Guess the letters and save the word!",
-    "meaning": "Meaning",
+    "subtitle": "Guess the word from the clue and save the figure!",
+    "meaning": "Clue",
     "won": "Well done! You guessed it 🎉",
     "lost": "You lost! The word was:",
     "level": "Level",

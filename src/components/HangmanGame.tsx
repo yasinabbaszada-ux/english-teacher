@@ -45,6 +45,25 @@ function Gallows({ wrong }: { wrong: number }) {
         {wrong >= 5 && <line x1="86" y1="98" x2="70" y2="124" />}
         {wrong >= 6 && <line x1="86" y1="98" x2="102" y2="124" />}
       </g>
+      {/* face (appears with the head) */}
+      {wrong >= 1 && (
+        <g className="fill-primary stroke-primary" strokeWidth="2">
+          {wrong >= 6 ? (
+            <>
+              {/* x_x — defeated */}
+              <path d="M79 34 l4 4 M83 34 l-4 4" strokeLinecap="round" fill="none" />
+              <path d="M89 34 l4 4 M93 34 l-4 4" strokeLinecap="round" fill="none" />
+              <path d="M81 45 q5 -4 10 0" strokeLinecap="round" fill="none" />
+            </>
+          ) : (
+            <>
+              <circle cx="82" cy="36" r="1.6" stroke="none" />
+              <circle cx="90" cy="36" r="1.6" stroke="none" />
+              <path d="M82 44 q4 3 8 0" strokeLinecap="round" fill="none" />
+            </>
+          )}
+        </g>
+      )}
     </svg>
   );
 }
@@ -157,17 +176,33 @@ export default function HangmanGame() {
       </div>
 
       {/* gallows + clue */}
-      <div className="mt-5 flex flex-col items-center gap-3 rounded-2xl border border-border bg-gradient-to-br from-primary/10 via-card to-accent/10 p-5">
-        <Gallows wrong={wrongCount} />
-        <div className="text-center">
-          <span className="text-xs uppercase tracking-wide text-muted">
-            {t("meaning")}
-          </span>
-          <p className="text-xl font-extrabold">{word.az}</p>
+      <div className="mt-5 grid gap-4 rounded-2xl border-2 border-accent/30 bg-card/60 p-5 sm:grid-cols-[auto_1fr] sm:items-center">
+        <div className="flex flex-col items-center">
+          <Gallows wrong={wrongCount} />
+          <div
+            className="mt-1 flex gap-1 text-lg"
+            title={`${t("wrongLeft")}: ${MAX_WRONG - wrongCount}`}
+          >
+            {Array.from({ length: MAX_WRONG }).map((_, i) => (
+              <span
+                key={i}
+                className={
+                  i < MAX_WRONG - wrongCount ? "text-accent" : "text-border"
+                }
+              >
+                ♥
+              </span>
+            ))}
+          </div>
         </div>
-        <p className="text-xs font-medium text-muted">
-          {t("wrongLeft")}: {MAX_WRONG - wrongCount}
-        </p>
+        <div className="text-center sm:text-left">
+          <span className="inline-block rounded-full bg-accent/20 px-3 py-1 text-xs font-bold uppercase tracking-wide text-amber-700">
+            💡 {t("meaning")}
+          </span>
+          <p className="mt-3 text-lg font-semibold leading-relaxed">
+            {word.clue}
+          </p>
+        </div>
       </div>
 
       {/* word blanks */}

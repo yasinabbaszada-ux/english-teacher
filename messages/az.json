@@ -5,12 +5,13 @@
     "about": "Haqqımda",
     "contact": "Əlaqə",
     "game": "Söz oyunu",
-    "hangman": "Dar ağacı"
+    "hangman": "Dar ağacı",
+    "games": "Oyunlar"
   },
   "hangman": {
     "title": "Dar ağacı",
-    "subtitle": "Hərfləri tap, sözü dar ağacından xilas et!",
-    "meaning": "Mənası",
+    "subtitle": "İpucundan sözü təxmin et və çöp adamı xilas et!",
+    "meaning": "İpucu",
     "won": "Afərin! Sözü tapdın 🎉",
     "lost": "Uduzdun! Söz bu idi:",
     "level": "Səviyyə",
