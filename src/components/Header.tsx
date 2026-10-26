@@ -71,7 +71,7 @@ export default function Header() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm"
+              className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm"
             />
             <motion.aside
               key="panel"
@@ -79,7 +79,7 @@ export default function Header() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "tween", duration: 0.3, ease: "easeOut" }}
-              className="fixed inset-y-0 left-0 z-50 flex w-72 max-w-[80vw] flex-col border-r border-border bg-background p-5 shadow-2xl"
+              className="fixed inset-y-0 left-0 z-[61] flex w-72 max-w-[82vw] flex-col border-r border-border bg-background p-5 shadow-2xl"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 font-bold">
