@@ -12,26 +12,26 @@ export default async function MemoryPage({
 
   return (
     <div className="game-immersive relative min-h-[calc(100vh-4rem)] overflow-hidden">
-      {/* decorative background */}
+      {/* background scene — full image, no zoom */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-primary/10 via-background to-accent/10"
+        className="pointer-events-none absolute inset-0 -z-20 bg-cover bg-center"
+        style={{ backgroundImage: "url('/memory-bg.png')" }}
       />
+      {/* light readability overlay */}
       <div
         aria-hidden
-        className="animate-float-slow pointer-events-none absolute -left-20 top-16 -z-10 h-72 w-72 rounded-full bg-primary/15 blur-3xl"
-      />
-      <div
-        aria-hidden
-        className="animate-float-slower pointer-events-none absolute -right-16 bottom-10 -z-10 h-80 w-80 rounded-full bg-accent/15 blur-3xl"
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-background/20 via-background/30 to-background/70"
       />
 
       <div className="mx-auto max-w-5xl px-4 py-14">
         <header className="mb-10 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-2xl font-extrabold tracking-tight text-primary shadow-sm sm:text-3xl">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/90 px-6 py-3 text-2xl font-extrabold tracking-tight text-primary shadow-sm backdrop-blur sm:text-3xl">
             🃏 {t("title")}
           </span>
-          <p className="mt-4 text-muted">{t("subtitle")}</p>
+          <p className="mx-auto mt-4 inline-block rounded-full bg-card/85 px-4 py-2 text-sm font-semibold text-foreground backdrop-blur">
+            {t("subtitle")}
+          </p>
         </header>
 
         <MemoryGame />

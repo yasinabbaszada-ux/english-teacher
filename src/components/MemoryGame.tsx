@@ -78,7 +78,7 @@ export default function MemoryGame() {
   }
 
   return (
-    <div className="mx-auto max-w-xl rounded-3xl border-2 border-primary/30 bg-background/85 p-6 shadow-xl backdrop-blur-md sm:p-8">
+    <div className="mx-auto max-w-xl rounded-3xl border-2 border-primary/40 bg-background/90 p-6 shadow-2xl ring-1 ring-black/5 backdrop-blur-xl sm:p-8">
       {/* scoreboard */}
       <div className="flex flex-wrap items-center justify-center gap-2">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1.5 text-sm">
