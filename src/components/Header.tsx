@@ -43,7 +43,8 @@ export default function Header() {
     }`;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
+    <>
+      <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <div className="flex items-center gap-3">
           <button
@@ -68,8 +69,10 @@ export default function Header() {
 
         <LangSwitcher />
       </div>
+      </header>
 
-      {/* Left drawer */}
+      {/* Left drawer — rendered OUTSIDE <header> so the header's
+          backdrop-blur does not trap its fixed positioning */}
       <AnimatePresence>
         {open && (
           <>
@@ -179,6 +182,6 @@ export default function Header() {
           </>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
