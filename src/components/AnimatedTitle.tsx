@@ -12,7 +12,7 @@ export default function AnimatedTitle({ text }: { text: string }) {
   return (
     <div className="flex flex-col items-center gap-1.5 sm:gap-2.5">
       {words.map((word, w) => (
-        <div key={w} className="flex gap-1.5 sm:gap-2.5">
+        <div key={w} className="flex gap-1 sm:gap-2.5">
           {word.split("").map((ch) => {
             index++;
             const i = index;
@@ -27,7 +27,7 @@ export default function AnimatedTitle({ text }: { text: string }) {
                   damping: 14,
                   delay: i * 0.1,
                 }}
-                className="grid h-9 w-9 place-items-center rounded-xl bg-white text-lg font-black text-[#2a2318] shadow-lg sm:h-14 sm:w-14 sm:rounded-2xl sm:text-3xl"
+                className="grid h-8 w-8 place-items-center rounded-lg bg-white text-base font-black text-[#2a2318] shadow-lg sm:h-14 sm:w-14 sm:rounded-2xl sm:text-3xl"
                 style={{ boxShadow: "0 8px 20px rgba(0,0,0,0.22)" }}
               >
                 {ch}

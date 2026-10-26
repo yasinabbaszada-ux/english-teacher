@@ -27,7 +27,7 @@ export default async function HangmanPage({
 
       <div className="mx-auto max-w-5xl px-4 py-14">
         <header className="mb-10 flex flex-col items-center text-center">
-          <AnimatedTitle text={t("title")} />
+          <AnimatedTitle text="HANGMAN" />
           <p className="mx-auto mt-5 inline-block rounded-full bg-card/85 px-4 py-2 text-sm font-semibold text-foreground backdrop-blur">
             {t("subtitle")}
           </p>
