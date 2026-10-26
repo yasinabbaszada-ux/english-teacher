@@ -142,7 +142,7 @@ export default function HangmanGame() {
   ];
 
   return (
-    <div className="mx-auto max-w-xl rounded-3xl border-2 border-accent/30 bg-background/60 p-6 shadow-xl backdrop-blur-lg sm:p-8">
+    <div className="mx-auto max-w-xl rounded-3xl border-2 border-accent/50 bg-background/90 p-6 shadow-2xl ring-1 ring-black/5 backdrop-blur-xl sm:p-8">
       {/* scoreboard — inline chips (distinct from the word game) */}
       <div className="flex flex-wrap items-center justify-center gap-2">
         {stats.map((s) => (
@@ -178,9 +178,11 @@ export default function HangmanGame() {
       </div>
 
       {/* gallows + clue */}
-      <div className="mt-5 grid gap-4 rounded-2xl border-2 border-accent/30 bg-card/60 p-5 sm:grid-cols-[auto_1fr] sm:items-center">
+      <div className="mt-5 grid gap-4 rounded-2xl border-2 border-accent/40 bg-card p-5 shadow-inner sm:grid-cols-[auto_1fr] sm:items-center">
         <div className="flex flex-col items-center">
-          <Gallows wrong={wrongCount} />
+          <div className="rounded-2xl border border-border bg-background p-2">
+            <Gallows wrong={wrongCount} />
+          </div>
           <div
             className="mt-1 flex gap-1 text-lg"
             title={`${t("wrongLeft")}: ${MAX_WRONG - wrongCount}`}
