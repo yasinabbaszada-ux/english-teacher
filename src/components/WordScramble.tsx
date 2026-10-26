@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { LEVELS, LEVEL_ORDER, type GameWord, type Level } from "@/lib/words";
 
 type Tile = { id: number; char: string };
@@ -26,6 +26,7 @@ function makeTiles(word: string): Tile[] {
 
 export default function WordScramble() {
   const t = useTranslations("game");
+  const locale = useLocale();
 
   const [level, setLevel] = useState<Level>("A1");
   const [word, setWord] = useState<GameWord>(LEVELS.A1[0]);
@@ -174,7 +175,9 @@ export default function WordScramble() {
             <span className="text-xs uppercase tracking-wide text-muted">
               {t("meaning")}
             </span>
-            <p className="mt-1 text-2xl font-extrabold">{word.az}</p>
+            <p className="mt-1 text-2xl font-extrabold">
+              {locale === "az" ? word.az : word.clue_en}
+            </p>
           </>
         ) : (
           <>

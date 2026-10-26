@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { LEVELS, LEVEL_ORDER, type GameWord, type Level } from "@/lib/words";
 
 const MAX_WRONG = 6;
@@ -70,6 +70,7 @@ function Gallows({ wrong }: { wrong: number }) {
 
 export default function HangmanGame() {
   const t = useTranslations("hangman");
+  const locale = useLocale();
 
   const [level, setLevel] = useState<Level>("A1");
   const [word, setWord] = useState<GameWord>(LEVELS.A1[0]);
@@ -200,7 +201,7 @@ export default function HangmanGame() {
             💡 {t("meaning")}
           </span>
           <p className="mt-3 text-lg font-semibold leading-relaxed">
-            {word.clue}
+            {locale === "az" ? word.clue : word.clue_en}
           </p>
         </div>
       </div>
