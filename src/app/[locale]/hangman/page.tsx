@@ -12,18 +12,16 @@ export default async function HangmanPage({
 
   return (
     <div className="relative min-h-[calc(100vh-4rem)] overflow-hidden">
-      {/* decorative background */}
+      {/* animated background scene */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-primary/5 via-background to-accent/5"
+        className="animate-kenburns pointer-events-none absolute inset-0 -z-20 scale-110 bg-cover bg-center blur-[2px]"
+        style={{ backgroundImage: "url('/hangman-bg.png')" }}
       />
+      {/* light readability overlay */}
       <div
         aria-hidden
-        className="animate-float-slow pointer-events-none absolute -left-20 top-16 -z-10 h-72 w-72 rounded-full bg-primary/15 blur-3xl"
-      />
-      <div
-        aria-hidden
-        className="animate-float-slower pointer-events-none absolute -right-16 bottom-10 -z-10 h-80 w-80 rounded-full bg-accent/15 blur-3xl"
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-background/15 via-background/25 to-background/60"
       />
 
       <div className="mx-auto max-w-5xl px-4 py-14">
